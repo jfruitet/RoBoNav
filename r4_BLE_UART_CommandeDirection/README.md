@@ -165,6 +165,8 @@ According to the BLE Assigned Numbers document:
   
 Création d'un service BLE pour ajouter un UART BLE (Equivalent du SPP bluetooth Classic)
 
+https://forum.arduino.cc/t/autour-du-bluetooth-ble/652319
+
 Exemple basé sur les informations du site web d'Adafruit, de Neil Kolban et de ThingEngineer:
 *  https://learn.adafruit.com/introducing-adafruit-ble-bluetooth-low-energy-friend/uart-service
 *  https://github.com/nkolban/esp32-snippets/blob/master/cpp_utils/tests/BLETests/Arduino/BLE_client/BLE_client.ino
