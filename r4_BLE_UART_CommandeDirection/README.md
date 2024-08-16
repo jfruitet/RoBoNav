@@ -68,7 +68,7 @@ Installer l'applet "Serial Bluetooth Terminal (Kai Morich)" sur le  smartphone
 
 Dans l'Arduino IDE importer la carte UNO R4 WiFI et les bibliothèques 
 
-````
+```
 #include <ArduinoBLE.h>
 // To use ArduinoGraphics APIs, please include BEFORE Arduino_LED_Matrix
 #include "ArduinoGraphics.h"
