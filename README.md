@@ -1,20 +1,22 @@
 # RoboNav
- 
+Mise à jour d'Avril 2025.
 ## Projet RoBoNav 
 
-Développé par Gauthier AILLERET, Pierre-Louis BURGUET, Nicolas FERRY, Enora FREMY, Marie LOUVET (ICAM de Nantes)
+Développé par ICAM de Nantes : Agathe DAUDENTHUN, Thed Primael KAMGA KAPTOUOM,
+Gauthier AILLERET (2024), Pierre-Louis BURGUET (2024), Enora FREMY (2023), Marie LOUVET (2023)
+Nicolas FERRY (Enseignant chercheur, ICAM de Nantes)
 et Jean FRUITET (ARBL)
 
 Contact : jean.fruitet@free.fr
-GitHub: 
+GitHub: https://github.com/jfruitet
 
-Ce projet de Bouée autonome avec ancrage par GPS destinée à la VRC (Voile Radio Commandée) 
+Ce projet de Bouées autonomes avec ancrage par GPS, destinée à la VRC (Voile Radio Commandée), 
 a été lancé en février 2023 à l'initiative de Jean FRUITET avec le soutien de l'ARBL (Association Radiomodéliste des Bords de Loire).
 
-Deux équipes projets successives d'élèves de 4ème année de l'école d'ingénieurs ICAM de Nantes 
-l'ont mené à bien sous la tutelle de Nicolas FERRY, enseignant-chercheur.
+Trois équipes projets successives d'élèves de 4ème année de l'école d'ingénieurs ICAM de Nantes l'ont mené à bien sous la tutelle 
+de Nicolas FERRY, enseignant-chercheur.
 
-Les tests effectués en juillet 2024 ont validé les concepts, le modèle de bouée et les logiciels de pilotage.
+Les tests effectués en juillet 2024 ont validé les concepts, le modèle de bouée, l'électronique et les logiciels de pilotage.
 
 Ce projet n'est pas achevé, des améliorations seront développées graduellement en sources libres.
 
@@ -73,7 +75,7 @@ Voir le GitHub https://github.com/jfruitet/placerbouees
 
 ## ETAT D'AVANCEMENT DU PROJET
 
-### REALISE
+### REALISE (2023 / 2024)
 * *FAIT* : Bouée RoBoNav v 1.0, motorisation, alimentation
 * *FAIT* : Carte électronique et circuit imprimé pour chip ESP32 WROOM
 * *FAIT* : Pilotage de la bouée RoBoNav avec une radiocommande Radiomaster 
@@ -87,7 +89,11 @@ Voir le GitHub https://github.com/jfruitet/placerbouees
 * *FAIT* : Serveur de fichiers de positionnement des bouées en fonction du vent
 * *FAIT* : Créer un GitHub RoBoNav
 
-### A FAIRE
+### A FAIRE (2025)
+* Améliorer la précision des données GPS (programmer et tester GPS haute précision, ainsi qu'un algorithmes de DGNSS avec asservissement PID)
+* Implanter les accéléromètres (? est-ce nécessaire ?)
+* Implanter RTK (En a-t'on les moyens ?)
+* Redessiner le PCB pour le rendre plus robuste.
 * Programmer le fail safe
 * Rassembler les paramètres de configuration dans un fichier de setup
 * Implanter le chargement / assignation de positions GPS par Smartphone / WiFi
