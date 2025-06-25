@@ -1,3 +1,9 @@
+/***************************************
+RoBoNav  2023 - 2024 - RC_acquisition.cpp
+Gestion des canaux affectés au récepteur de la radiocommande
+****************************************/
+
+
 #include "RC_acquisition.h"
 #include "pin_definition.h"
 
@@ -42,7 +48,7 @@ void read_RC()
 
 void wait_RCMode( int mode )
 {
-  //--- Attendre tend que l'on ne passe pas en Mode 3 = Mode Manuel
+  //--- Attendre tant que l'on ne passe pas en Mode 3 = Mode Manuel
   slog( 1, "_RC_", "Waiting for entering Mode ", false ); clog(mode); elog();
   while( mode != RC_value[7] ) //   + mode Wifi   && mode != Wifi_value[7] )
   { delay(100); }

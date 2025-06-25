@@ -1,0 +1,119 @@
+Radiomaster T8 Pro
+
+Le récepteur R88 est un récepteur 8 voies
+
+Utilisation des touches de commande
+Touche SYS : Menu des paramètres de la radiocommande : 7 rubriques (sous-menus)
+Touche MDL : Menu propre au modèle actif : 13 rubriques (sous-menus)
+Dans les menus les touches à utiliser :
+	Touche Page> pour changer de page (changer de sous-menu)
+	Touche Page< pour monter dans la liste les sous-menus
+	Touche UP et Down pour faire défiler les rubriques d'un sous-menu
+	Touche ENT pour éditer un paramètres (appui long) et valider
+			Touche UP et Down pour sélectionner une valeur de paramètre
+			Touche ENT pour  valider
+	Touche RTN pour sortir de l'édition
+Touche RTN pour sortir des menus	
+
+A) Configuration système de la radiocommande 
+1) Allumer la radiocommande
+2) Appuyer sur la touche SYS
+	Passer sur le sous-menu CONFIG RADIO (3/7)
+	Touche DOWN pour faire défiler les paramètres :
+	Touche ENT pour éditer la valeur d'une paramètre
+		Touches UP et DOWN pour sélectionner une valeur
+		Touche ENT pour valider ce choix
+		
+	Voci les paramètres attendus pour le projet RoBoNav :
+		Mode USB : PopUp
+		Ordre voies RX : A (Ailerons) P (Profondeur) G (Gaz) D (Direction)
+		Mode : 2 --> "Gaz à gauche" / Mode : 1 --> "Gaz à droite"
+		
+		Le projet RoBoNav utilise les gaz à gauche ce qui correspond 
+		à la configuration des manches de la radiocommande 
+			Manche gauche horizontal : Direction
+			Manche gauche vertical : Gaz
+			Manche droit horizonatl : Ailerons
+			Manche droit vertical : Profondeur
+
+En cas d'inversion d'une commande passer par la rubrique REVERSE			 
+Touche RTN pour sortir d'un sous-menu
+Touche RTN pour sortir d'un menu	
+		
+
+Procédure d'appairage du récepteur Radiomaster R88
+
+Commencer par vérifier que la radiocommande est correctement configurée pour le récepteur 
+du modèle sélectionné :
+
+Configuration d'un modèle
+1) Allumer la radiocommande
+2) Appuyer sur la touche MDL
+Sélectionner l'écran Modèle (1/13) avec Page>
+Sélectionner le modèle (* si déjà sélectionné) avec UP et DOWN 
+	Touche ENT --> Sélectionner : ENT. Ce modèle est désormais le modèle actif
+	Rubriques du sous-menu MODELE
+	Touche Page> pour entrer dans les paramètres du modèle
+	Page > Editer les paramètres de configuration du modèle
+		Sous-menu : CONF.MODELE
+			Nom : Nommer le modèle. 
+				Appui long touche ENT
+				Faire défiler les chiffres et lettre avec UP et Down 
+				Sélectionner une lettre avec ENT
+				Appui long sur ENT pour passer en lettre capitale
+				RTN pour sortir
+
+3) Sélectionner le menu configuration (Touche Page>) Ecran 2/13
+Faire défiler les rubriques avec la touche DOWN / UP
+
+Pour le récepteur Radiomaster R88 la radiocommande doit être configurée comme ceci :
+Alerte gaz : X
+Alerte int : A, B, C, D
+Mode : MULTI, 
+Type : FrSky D, (S'obtient en sélectionnant FrSky X puis le sous type D8)
+Sous-type : D8, 
+Canaux CH1-16,
+Récepteur 00 [Bnd] [Prt] 
+No Telem X
+
+4) Sortir du menu de configuration avec la touche RTN
+
+Brancher le récepteur en appuyant sur le bouton de bind du récepteur.
+Le récepteur se met à clignoter en enchaînant les séquences
+On     On     On  : FrSky D8
+OnOn   OnOn   OnOn : FrSky D16 8 canaux
+OnOnOn OnOnOn OnOnOn : Futaba
+
+Dans le menu Configuration de la radiocommande aller sur le sous rubrique [BND]  (Après Récepteur 00) 
+Touche ENT appui long, la rubrique clignote et la radiocommande bipe et clignote en bleu
+Avec un crayon appuyer sur la touche Bind au dos de la radiocommande
+Après quelques secondes le récepteur se met à clignoter très rapidement. L'appairage est terminé.
+Débrancher le récepteur.
+Revenir à l'écran initial sur la télécommande (Touche RTN)
+
+
+Dans cette page, https://www.radiomasterrc.com/products/r88-receiver
+une vidéo constructeur pour appairer le récepteur le R88 v2 avec une Radiocommande Radiomaster.
+Selon le modèle de radio il y a plusieurs options possibles concernant le protocole de communication.
+
+Commencer par vérifier dans quel protocole la Radiomaster T8 Pro
+(https://www.radiomasterrc.com/collections/transmitter/products/t8-pro-radio-controller)
+a été configurée.
+
+Pour cela il faut entrer dans les menus en suivant la doc de la télécommande.
+https://cdn.shopify.com/s/files/1/0609/8324/7079/files/T8_Pro_User_Manual.pdf?v=1639375197
+Une fois le protocole repéré suivez le tutoriel vidéo :
+https://www.youtube.com/watch?v=OcyIeuiUPn8
+pour paramétrer le récepteur.
+
+Vidéo expliquant la configuration avec OpenTx Companion
+https://www.youtube.com/watch?v=tDZYXx-RPbE
+
+
+Press and hold the Power button until you feel a vibration feedback. The radio is now on. If the throttle or switches are not in the correct position the Power LED will be RED. Please reset the switches to the correct position and move the throttle to the lowest point. The Power LED will turn GREEN to indicate the radio is now ready to use. To Turn off your T8 press and hold the power button until you feel a vibration feedback and the radio will turn off. If the LED is RED when turning off disconnect power to your model first.
+
+Model selection and protocol selection
+
+T8 PRO comes with a Multi-Module powered CC2500 RF chip, which is compatible with many different protocols. To view the latest list of all compatible protocols, please visit https://www.multi-module.org/. Please note that new protocols will be continuously updated and added to the latest firmware. Some new protocols may require firmware upgrades.
+
+Please long press the MDL button to enter the model settings, select MULTI in the SETUP page, and select the protocol to be used in the sub-options. The system will automatically turn on the corresponding RF module according to the RF protocol you selected, and turn off the other three RF modules at the same time. The system will only turn on one radio frequency module at the same time to ensure that there is no redundant radio signal interference

@@ -1,5 +1,5 @@
 //*****************************************************************************************//
-// RoboNav - Buyobot ARBL Flight/Swim Controller
+// RoboNav.ino - Buyobot ARBL Flight/Swim Controller
 // Copyright ICAM/ARBL 2022-2024
 //*****************************************************************************************//
 // Created, Maintener : Nicolas FERRY
@@ -94,7 +94,7 @@ void setup()
    init_Compass();
 
    //--- Calibrate Equipements ----------------//
-   wait_RCMode(1);              // Wait dor RC Command in Mode 1 = Return To Home (before starting calibrate and GPS RTH Fix)
+   wait_RCMode(1);              // Wait for RC Command in Mode 1 = Return To Home (before starting calibrate and GPS RTH Fix)
    calibrate_ESC();
    calibrate_Compass();
    wait_GPSFix( true );         // Wait for GPS Fix and Store it at Return to Home Position

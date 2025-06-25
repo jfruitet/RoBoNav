@@ -12,7 +12,7 @@ a été lancé en février 2023 à l'initiative de Jean FRUITET avec le soutien 
 Deux équipes projets successives d'élèves de 4ème année de l'école d'ingénieurs ICAM de Nantes 
 l'ont mené à bien sous la tutelle de Nicolas FERRY, enseignant-chercheur.
 
-Les tests menés en juillet 2024 ont validé les concepts, le modèle de bouée et les locgiciels
+Les tests menés en juillet 2024 ont validé les concepts, le modèle de bouée et les logiciels
 de pilotage.
 
 Ce projet n'est pas achevé, des améliorations seront développées graduellement en sources libres.
@@ -39,7 +39,7 @@ La motorisation se fait avec deux turbines brushless connectées à des ESC rév
 Le dispositif de pilotage et de positionnement est composé d'une partie électronique et de logiciels dédiés.
 
 #### Contrôleur de navigation
-Nous avons développé une contrôleur de navigation basé sur micro contrôleur ESP32.
+Nous avons développé une contrôleur de navigation basé sur micro contrôleur ESP32 WROOM WiFi.
 
 Un circuit imprimé (PCB) spécifique a été conçu pour ce projet.
 
@@ -48,4 +48,4 @@ Le chip ESP32 gère un récepteur Radiomaster, une connexion WiFi, une antenne G
 #### Logiciels
 
 ##### Microcontrôleur
-La gestion de la carte de navigation est développée en C (.ino) sous  
+La gestion de la carte de navigation est développée en C (.ino) sous  l'IDE Android Studio

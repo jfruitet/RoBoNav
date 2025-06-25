@@ -1,3 +1,11 @@
+/***************************************
+RoBoNav  2023 - 2024 - GPS_acquisition.cpp
+Version développée pour les GPS Ublox M8N en configuration MNEA
+Voir Notes.h pour leur configuration
+A partir de 2025 nous programmons ceux-ci directement en UBX depuis le programme Aeduino
+Voir ../../../GPS/src_icam/DGPS M8N/Base_GPS.ino
+****************************************/
+
 #include "GPS_acquisition.h"
 
 #define NB_GPS_MOY  64

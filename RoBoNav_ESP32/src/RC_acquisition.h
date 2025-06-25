@@ -1,3 +1,8 @@
+/**************************************
+RoBoNav - 2023 - 2024 
+RC_acquisition.h
+***************************************/
+
 #ifndef RC_acquisition_H
 #define RC_acquisition_H
 

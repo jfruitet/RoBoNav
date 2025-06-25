@@ -1,3 +1,6 @@
+/****************************************
+RoBoNav  2023 - 2024 - Wifi_acquisition.h
+*****************************************/
 #ifndef Wifi_acquisition_H
 #define Wifi_acquisition_H
 
@@ -7,6 +10,7 @@
 #include "WiFiUDP.h"
 #include "RC_acquisition.h"
 #include "utils.h"
+#include "RoBoNav_config_WiFi.h" // Mot de passe et point d'entrée ssid
 
 extern bool activerWifi;
 

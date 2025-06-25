@@ -1,39 +1,55 @@
+# RoboNav
+ 
+## Projet RoBoNav 
 
-This directory is intended for project header files.
+Développé par Gauthier AILLERET, Pierre-Louis BURGUET, Nicolas FERRY, Enora FREMY, Marie LOUVET (ICAM de Nantes)
+et Jean FRUITET (ARBL)
 
-A header file is a file containing C declarations and macro definitions
-to be shared between several project source files. You request the use of a
-header file in your project source file (C, C++, etc) located in `src` folder
-by including it, with the C preprocessing directive `#include'.
+Contact : jean.fruitet@free.fr
 
-```src/main.c
+Ce projet de Bouée autonome avec ancrage par GPS destinée à la VRC (Voile Radio Commandée) 
+a été lancé en février 2023 à l'initiative de Jean FRUITET avec le soutien de l'ARBL (Association Radiomodéliste des Bords de Loire).
+Deux équipes projets successives d'élèves de 4ème année de l'école d'ingénieurs ICAM de Nantes 
+l'ont mené à bien sous la tutelle de Nicolas FERRY, enseignant-chercheur.
 
-#include "header.h"
+Les tests menés en juillet 2024 ont validé les concepts, le modèle de bouée et les logiciels
+de pilotage.
 
-int main (void)
-{
- ...
-}
-```
+Ce projet n'est pas achevé, des améliorations seront développées graduellement en sources libres.
 
-Including a header file produces the same results as copying the header file
-into each source file that needs it. Such copying would be time-consuming
-and error-prone. With a header file, the related declarations appear
-in only one place. If they need to be changed, they can be changed in one
-place, and programs that include the header file will automatically use the
-new version when next recompiled. The header file eliminates the labor of
-finding and changing all the copies as well as the risk that a failure to
-find one copy will result in inconsistencies within a program.
+Si vous êtes intéressé contactez-moi.
 
-In C, the usual convention is to give header files names that end with `.h'.
-It is most portable to use only letters, digits, dashes, and underscores in
-header file names, and at most one dot.
 
-Read more about using header files in official GCC documentation:
+## Architecture
 
-* Include Syntax
-* Include Operation
-* Once-Only Headers
-* Computed Includes
 
-https://gcc.gnu.org/onlinedocs/cpp/Header-Files.html
+
+Voir la documentation dédiée à la partie électronique du projet
+
+### Pilotage
+Nous utilisons une radio commande Rodiomaster (compatible FrSky)
+et/ou une applet sur smartphone développée avec MIT App Inventor 2.
+
+### Bouées
+Le bouées ont une base flottante en EPP et une couronne mobile en PE.
+
+La motorisation se fait avec deux turbines brushless connectées à des ESC réversibles alimentées en 12 volts pas des batteries LiPo 3S ou une batterie au plomb 12 volts de moto.
+
+### Communication et positionnement
+Le dispositif de pilotage et de positionnement est composé d'une partie électronique et de logiciels dédiés.
+
+#### Contrôleur de navigation
+Nous avons développé une contrôleur de navigation basé sur micro contrôleur ESP32 WROOM WiFi.
+
+Un circuit imprimé (PCB) spécifique a été conçu pour ce projet.
+
+Le chip ESP32 gère un récepteur Radiomaster, une connexion WiFi, une antenne GPS, une boussole et des accéléromètres.
+
+#### Logiciels
+
+##### Microcontrôleur
+La gestion de la carte de navigation est développée en CPP (.ino) sous  l'IDE Android Studio
+
+##### Structure
+
+(A terminer)
