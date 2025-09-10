@@ -1,0 +1,426 @@
+[{
+ "categoryString": "EXTENSION",
+ "dateBuilt": "2022-03-30",
+ "nonVisible": "true",
+ "iconName": "aiwebres/icon.png",
+ "methods": [
+  {
+   "deprecated": "false",
+   "name": "RemoveReceivingByteArray",
+   "description": "Removes the receiving ByteArray component.",
+   "params": []
+  },
+  {
+   "deprecated": "false",
+   "name": "Start",
+   "description": "Start the UDP listening server.",
+   "params": [{
+    "name": "LocalPort",
+    "type": "number"
+   }]
+  },
+  {
+   "deprecated": "false",
+   "name": "StartMulticast",
+   "description": "Start the UDP listening server to listen to a multicast group.",
+   "params": [
+    {
+     "name": "GroupIP",
+     "type": "text"
+    },
+    {
+     "name": "LocalPort",
+     "type": "number"
+    }
+   ]
+  },
+  {
+   "deprecated": "false",
+   "name": "Stop",
+   "description": "Stops the UDP listening server.",
+   "params": []
+  }
+ ],
+ "blockProperties": [
+  {
+   "rw": "read-write",
+   "deprecated": "false",
+   "name": "BinaryMode",
+   "description": "true: Binary data expected.",
+   "type": "boolean"
+  },
+  {
+   "rw": "read-write",
+   "deprecated": "false",
+   "name": "DropSentToYourself",
+   "description": "true: (Broadcast) Messages sent to yourself are dropped.",
+   "type": "boolean"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "IsRunning",
+   "description": "true: UDP server is running.",
+   "type": "boolean"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "LastAction",
+   "description": "Returns the last Action the error code belongs to.",
+   "type": "text"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "LastErrorCode",
+   "description": "Returns the code of the last error.",
+   "type": "number"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "LastErrorMessage",
+   "description": "Returns a text message about the last error.",
+   "type": "text"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "LocalHost",
+   "description": "Returns the IP address of the local host. An empty string if not connected to a network.",
+   "type": "text"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "NICList",
+   "description": "Returns the IPv4 addresses of all known network interfaces.",
+   "type": "list"
+  },
+  {
+   "rw": "write-only",
+   "deprecated": "false",
+   "name": "ReceivingByteArray",
+   "description": "ByteArray component to receive data.",
+   "type": "component"
+  }
+ ],
+ "helpUrl": "http://UllisRoboterSeite.de/android-AI2-UDP.html",
+ "licenseName": "",
+ "type": "de.ullisroboterseite.ursai2udp.UDPListener",
+ "versionName": "4.4.0",
+ "androidMinSdk": 7,
+ "version": "4",
+ "external": "true",
+ "showOnPalette": "true",
+ "name": "UDPListener",
+ "helpString": "AI2 extension block for UDP communication.",
+ "properties": [
+  {
+   "defaultValue": "False",
+   "name": "BinaryMode",
+   "editorArgs": [],
+   "editorType": "boolean"
+  },
+  {
+   "defaultValue": "True",
+   "name": "DropSentToYourself",
+   "editorArgs": [],
+   "editorType": "boolean"
+  },
+  {
+   "defaultValue": "",
+   "name": "ReceivingByteArray",
+   "editorArgs": [],
+   "editorType": "component"
+  }
+ ],
+ "events": [
+  {
+   "deprecated": "false",
+   "name": "DataReceived",
+   "description": "A datagram has been received.",
+   "params": [
+    {
+     "name": "Data",
+     "type": "text"
+    },
+    {
+     "name": "RemoteIP",
+     "type": "text"
+    },
+    {
+     "name": "RemotePort",
+     "type": "number"
+    }
+   ]
+  },
+  {
+   "deprecated": "false",
+   "name": "ListenerFailure",
+   "description": "The UDP listening server has stopped with failure.",
+   "params": [{
+    "name": "ErrorCode",
+    "type": "number"
+   }]
+  }
+ ]
+},{
+ "categoryString": "EXTENSION",
+ "dateBuilt": "2022-03-30",
+ "nonVisible": "true",
+ "iconName": "aiwebres/icon.png",
+ "methods": [
+  {
+   "deprecated": "false",
+   "name": "Xmit",
+   "description": "Send a datagram",
+   "params": [{
+    "name": "Message",
+    "type": "text"
+   }],
+   "returnType": "number"
+  },
+  {
+   "deprecated": "false",
+   "name": "XmitAsync",
+   "description": "Send a datagram",
+   "params": [{
+    "name": "Message",
+    "type": "text"
+   }]
+  },
+  {
+   "deprecated": "false",
+   "name": "XmitByteArray",
+   "description": "Send a datagram",
+   "params": [{
+    "name": "ByteArray",
+    "type": "component"
+   }],
+   "returnType": "number"
+  },
+  {
+   "deprecated": "false",
+   "name": "XmitByteArrayAsync",
+   "description": "Send a datagram",
+   "params": [{
+    "name": "ByteArray",
+    "type": "component"
+   }]
+  },
+  {
+   "deprecated": "false",
+   "name": "XmitByteArrayTo",
+   "description": "Send a datagram",
+   "params": [
+    {
+     "name": "RemoteHost",
+     "type": "text"
+    },
+    {
+     "name": "RemotePort",
+     "type": "number"
+    },
+    {
+     "name": "ByteArray",
+     "type": "component"
+    }
+   ],
+   "returnType": "number"
+  },
+  {
+   "deprecated": "false",
+   "name": "XmitByteArrayToAsync",
+   "description": "Send a datagram",
+   "params": [
+    {
+     "name": "RemoteHost",
+     "type": "text"
+    },
+    {
+     "name": "RemotePort",
+     "type": "number"
+    },
+    {
+     "name": "ByteArray",
+     "type": "component"
+    }
+   ]
+  },
+  {
+   "deprecated": "false",
+   "name": "XmitTo",
+   "description": "Send a datagram",
+   "params": [
+    {
+     "name": "RemoteHost",
+     "type": "text"
+    },
+    {
+     "name": "RemotePort",
+     "type": "number"
+    },
+    {
+     "name": "Message",
+     "type": "text"
+    }
+   ],
+   "returnType": "number"
+  },
+  {
+   "deprecated": "false",
+   "name": "XmitToAsync",
+   "description": "Send a datagram",
+   "params": [
+    {
+     "name": "RemoteHost",
+     "type": "text"
+    },
+    {
+     "name": "RemotePort",
+     "type": "number"
+    },
+    {
+     "name": "Message",
+     "type": "text"
+    }
+   ]
+  }
+ ],
+ "blockProperties": [
+  {
+   "rw": "read-write",
+   "deprecated": "false",
+   "name": "BinaryMode",
+   "description": "true: Binary data expected.",
+   "type": "boolean"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "LastAction",
+   "description": "Returns the last Action the error code belongs to.",
+   "type": "text"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "LastErrorCode",
+   "description": "Returns the code of the last error.",
+   "type": "number"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "LastErrorMessage",
+   "description": "Returns a text message about the last error.",
+   "type": "text"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "LocalHost",
+   "description": "Returns the IP address of the local host. An empty string if not connected to a network.",
+   "type": "text"
+  },
+  {
+   "rw": "read-write",
+   "deprecated": "false",
+   "name": "LocalPort",
+   "description": "Default local port number.",
+   "type": "number"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "NICList",
+   "description": "Returns the IPv4 addresses of all known network interfaces.",
+   "type": "list"
+  },
+  {
+   "rw": "read-write",
+   "deprecated": "false",
+   "name": "RemoteHost",
+   "description": "Name or IP address of remote host.",
+   "type": "text"
+  },
+  {
+   "rw": "read-only",
+   "deprecated": "false",
+   "name": "RemoteIP",
+   "description": "Name or IP address of remote host.",
+   "type": "text"
+  },
+  {
+   "rw": "read-write",
+   "deprecated": "false",
+   "name": "RemotePort",
+   "description": "Remote port number.",
+   "type": "number"
+  }
+ ],
+ "helpUrl": "http://UllisRoboterSeite.de/android-AI2-UDP.html",
+ "licenseName": "",
+ "type": "de.ullisroboterseite.ursai2udp.UDPXmitter",
+ "versionName": "4.4.0",
+ "androidMinSdk": 7,
+ "version": "4",
+ "external": "true",
+ "showOnPalette": "true",
+ "name": "UDPXmitter",
+ "helpString": "AI2 extension block for UDP communication.",
+ "properties": [
+  {
+   "defaultValue": "False",
+   "name": "BinaryMode",
+   "editorArgs": [],
+   "editorType": "boolean"
+  },
+  {
+   "defaultValue": "0",
+   "name": "LocalPort",
+   "editorArgs": [],
+   "editorType": "integer"
+  },
+  {
+   "defaultValue": "",
+   "name": "RemoteHost",
+   "editorArgs": [],
+   "editorType": "string"
+  },
+  {
+   "defaultValue": "0",
+   "name": "RemotePort",
+   "editorArgs": [],
+   "editorType": "integer"
+  }
+ ],
+ "events": [
+  {
+   "deprecated": "false",
+   "name": "AfterXmit",
+   "description": "Raised after transfer of a UDP packet.",
+   "params": [
+    {
+     "name": "Success",
+     "type": "boolean"
+    },
+    {
+     "name": "ErrorCode",
+     "type": "number"
+    }
+   ]
+  },
+  {
+   "deprecated": "false",
+   "name": "XmitFailure",
+   "description": "Raised if transfer fails.",
+   "params": [{
+    "name": "ErrorCode",
+    "type": "number"
+   }]
+  }
+ ]
+}]
