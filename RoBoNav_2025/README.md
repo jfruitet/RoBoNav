@@ -20,5 +20,5 @@ Pour des raisons de coût nous nous sommes trounés vers des module GPS Quectel 
 
 C'est l'équipe de développement 2025 - 2026 qui prendra en charge l'intégration au projet RoBoNav.
 
-Pour accéder aux travaux concerant les GPS consuter le Github https://github.com/jfruitet/GPS
+Pour accéder aux travaux concernant les GPS consulter le Github https://github.com/jfruitet/GPS
 
