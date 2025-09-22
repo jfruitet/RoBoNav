@@ -1,11 +1,18 @@
+/*******************************************
+RoBoNav  2023 - 2025 - Wifi_acquisisiton.cpp
+*******************************************/
+
 #include "Wifi_acquisition.h"
 
 #define NB_TRY_CONNECTIONS 3
 #define PACKET_LENGTH 255
 
-//--- WiFi Access Point Configuration ---//
-const char *ssid = "JeanS10e";
-const char *password = "xjok9755";
+//--- WiFi Access Point Configuration déplacé vers RoBoNav_config_WiFi.h ---//
+// const char *ssid = "JeanS10e";
+// const char *password = "xjok9755";
+//--- WiFi Access Point Configuration  ---//
+// const char *ssid = "NicoPhone"; 
+// const char *password = "12345678"; 
 
 const int UDP_PORT = 1234;
 IPAddress local_IP ( 192, 168, 8, 001 );    // IP de la bouée

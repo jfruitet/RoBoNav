@@ -1,3 +1,10 @@
+/**************************************
+RoBoNav - 2023 - 2024 
+RC_acquisition.h
+ATTENTION : Ce code suppose que la radiocommande et le récepteur puissent gérer au moins 8 canaux
+Consulter le document RoBoNav - Mise en oeuvre.pdf du dossier ../../Documentation 
+***************************************/
+
 #ifndef RC_acquisition_H
 #define RC_acquisition_H
 

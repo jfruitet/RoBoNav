@@ -1,4 +1,4 @@
-/* Gauthier
+/* Gauthier Ailleret - ICAM Nantes - 2024
       Il est passible d'utiliser les logiciels Mission Planner avec un Pixhawk pour faire transiter les datas du GPS en faisant un passflow
       Pour cela :
          Ouvrir Mission Planner
@@ -46,5 +46,29 @@ Servo ESC_Calibrage;
   }
 
 
+2025/05/02 - JF
+A partir de mai 2025 la configuration des GPS UBlox est modifiée pour utiliser le mode binaire UBX plutôt que MNEA.
+Voir ../../../GPS
+
+
+2025/06/05 - JF
+Une ESC ayant brûlé, il faut la remplacer.
+J'ai fourni deux ESC 40A ZMR reverse. Il faut éventuellement reprogrammer ESC_control.cpp
+
+ATTENTION : Pour éviter les risques de court circuit il ne faut JAMAIS alimenter le PCB du contrôleur de vol ICAM / ARBL 
+à la fois avec le câble USB et et l'Ubec des ESC connectées aux batteries  batteries !!!!
 
 */
+
+/* GPS
+La version développée initialement pour les GPS Ublox M8N en configuration MNEA est remplacée à partir de mai 2025 par la programmation
+directement en code binaire UBX (Voir ../../../GPS/src_icam/DGPS M8N/Base_GPS.ino)
+A partir de septembre 2025 nous introduisons une version GPS RTK Quectel qui remplacera le code GPS_acquisition.cpp
+*/
+
+/* Réseau WiFi
+L'établissement d'u réseau wiFi pour communique par brodcast avec les bouées à partir d'un smartphone ou d'un PC nécessite
+un SSID et un mode passe.
+Pour vos tests modifier le fichier RoBoNav_config_WiFi.h 
+*/
+

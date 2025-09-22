@@ -1,3 +1,12 @@
+/***************************************
+RoBoNav  2023 - 2024 - 2025 GPS_acquisition.cpp
+Version développée initialement pour les GPS Ublox M8N en configuration MNEA
+Voir Notes.h pour leur configuration
+A partir de mai 2025 nous programmons ceux-ci directement en UBX depuis le programme Arduino
+Voir ../../../GPS/src_icam/DGPS M8N/Base_GPS.ino
+A partir de septembre 2025 nous introduisons une version GPS RTK Quectel qui remplacera ce code
+****************************************/
+
 #include "GPS_acquisition.h"
 
 #define NB_GPS_MOY  64

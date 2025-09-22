@@ -1,11 +1,12 @@
 //*****************************************************************************************//
 // RoboNav - Buyobot ARBL Flight/Swim Controller
-// Copyright ICAM/ARBL 2022-2024
+// Copyright ICAM/ARBL 2022-2025
 //*****************************************************************************************//
 // Created, Maintener : Nicolas FERRY
 // Autors ICAM 2023 : Marie Louvet, Enora Fremy
 // Autors ICAM 2024 : Pierre-Louis Burger, Gauthier Ailleret
 // Autors ICAM 2025 : Agathe Daudenthun, Thed Kamga
+// Autors ICAM 2026 : Mathis ANIZON, Quentin PARIS
 //*****************************************************************************************//
 // Created:  NF, EF-ML
 // Modified: RC_acquisition, initial GPS, Wifi_Acquisition - NF
@@ -15,6 +16,7 @@
 // Modified: UBX - GPS - NF
 // Modified: Filtrage - AD
 //*****************************************************************************************//
+
 #define ROBONAV_VERSION "1.2.4"
 
 #include "pin_definition.h"
@@ -59,14 +61,14 @@ double lat_position_dest = 0.0;
 double lng_position_dest = 0.0;
 double lat_position_dest_initiale = 0.0;
 double lng_position_dest_initiale = 0.0;
-double lat_position_dest_test = 47.244061;
+double lat_position_dest_test = 47.244061;  // Plan d'eau du Plessis, Sainte Luce su Loire, 44980 ; 47°14'38.6"N 1°28'26.5"W
 double lng_position_dest_test = -1.474036;
 
 float angle_bouee;                          // Angle Compas => Plus précis que l'angle GPS pour l'angle bouée réel
 float nav_angle;                            // Angle entre les points GPS (bouéee, cible)
 float target_dist;                          // Distance juqu'à la cible (=nav_dist mais c'est pour la lisibilité)
-float target_angle;                         // Angle à réaliser pour attenidre la cible (angle_GPS - Angle compas)
-float total_dist;                           // Distance Absolu (à la création du chemin) n'évolue pas au cours du temps
+float target_angle;                         // Angle à réaliser pour atteindre la cible (angle_GPS - Angle compas)
+float total_dist;                           // Distance Absolue (à la création du chemin) n'évolue pas au cours du temps
 float total_angle;                          // Angle Absolu (à la création du chemin) n'évolu pas au cours du temps
 
 //--- Dynamic Synchro Loop -------------------------------------------------------------//
@@ -87,7 +89,7 @@ void setup()
 
    init_Log( true, activerSerial, activerWifi );
    slog( 0, "RoboNav", "Starting RoboNav Controller v", false ); clog( ROBONAV_VERSION ); elog();
-   slog( 0, "RoboNav", "Copyright ICAM/ARBL 2022-2024", true );
+   slog( 0, "RoboNav", "Copyright ICAM/ARBL 2022-2025", true );
    
    //--- Init Equipements ---------------------//
    init_IO();
