@@ -1,11 +1,21 @@
 # RoboNav
-Mise à jour d'Avril 2025.
+Mise à jour de Septembre 2025.
 ## Projet RoBoNav 
 
-Développé par ICAM de Nantes : Agathe DAUDENTHUN, Thed Primael KAMGA KAPTOUOM,
-Gauthier AILLERET (2024), Pierre-Louis BURGUET (2024), Enora FREMY (2023), Marie LOUVET (2023)
-Nicolas FERRY (Enseignant chercheur, ICAM de Nantes)
-et Jean FRUITET (ARBL)
+Développé par 
+
+* ICAM de Nantes : 
+Enora FREMY (2023), Marie LOUVET (2023)
+Gauthier AILLERET (2024), Pierre-Louis BURGUET (2024), 
+Agathe DAUDENTHUN (2025), Thed Primael KAMGA KAPTOUOM (2025)
+Nicolas FERRY (Enseignant chercheur) (2023 - 2026)
+
+ ICAM de Vannes : 
+Mathis ANIZON (2025-2026), Quentin PARIS (2025-2026), 
+Laurane GILETTE (Enseignant chercheur) (2025-2026)
+
+* ARBL :
+Jean FRUITET (2023-2026)
 
 Contact : jean.fruitet@free.fr
 GitHub: https://github.com/jfruitet
@@ -13,8 +23,11 @@ GitHub: https://github.com/jfruitet
 Ce projet de Bouées autonomes avec ancrage par GPS, destinée à la VRC (Voile Radio Commandée), 
 a été lancé en février 2023 à l'initiative de Jean FRUITET avec le soutien de l'ARBL (Association Radiomodéliste des Bords de Loire).
 
-Trois équipes projets successives d'élèves de 4ème année de l'école d'ingénieurs ICAM de Nantes l'ont mené à bien sous la tutelle 
+Plusieurs équipes projets successives d'élèves de 4ème année de l'école d'ingénieurs ICAM de Nantes l'ont mené à bien sous la tutelle 
 de Nicolas FERRY, enseignant-chercheur.
+
+A partir de septembre 2025, Mathis ANIZON et Quentin PARIS, élèves de 5ème année en alternance à l'ICAM de Vannes ont contribué à sa finalisation,
+sous la direction de Laurane GILETTE.
 
 Les tests effectués en juillet 2024 ont validé les concepts, le modèle de bouée, l'électronique et les logiciels de pilotage.
 
