@@ -1,8 +1,3 @@
-/***************************************
-RoBoNav  2023 - 2024 - IO_control.cpp
-Initialise les sortie LED, Buzzer et ESC des moteurs
-****************************************/
-
 #include "IO_control.h"
 
 

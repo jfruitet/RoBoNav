@@ -1,12 +1,8 @@
-/**************************************
-RoBoNav - 2023 - 2024 
-utils.h
-***************************************/
 #ifndef utils_h
 #define utils_h
 
 #define LOG_BAUDRATE 115200
-#define LOG_MAX_LEVEL 0
+#define LOG_MAX_LEVEL 9
 
 #include <Arduino.h>
 #include "Wifi_acquisition.h"

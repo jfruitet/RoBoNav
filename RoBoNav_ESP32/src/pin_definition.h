@@ -1,8 +1,3 @@
-/**************************************
-RoBoNav - 2023 - 2024 
-pin_definition.h
-***************************************/
-
 #ifndef pin_definition_h 
 #define pin_definition_h
 

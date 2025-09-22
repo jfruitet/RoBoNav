@@ -1,14 +1,3 @@
-/***************************************
-RoBoNav  2023 - 2024 - ESC_control.cpp 
- des moteurs
-Version développée pour les ESC réversible HobbyWing QuicRun WP 10BL60 60 G2
-A adapter aux ESC réversibles ZMR 40A qui n'ont pas exactement la même programmation.
-Modifier éventuellement les fonctions 
-    int m1_control( int consigne ); // Moteur gauche
-    int m1_control( int consigne ); // Moteur droit
-
-****************************************/
-
 #include "ESC_control.h"
 
 int consigne_m1 = 0;                  // Consigne 1 avant fonction commande
@@ -71,7 +60,6 @@ void stop_controlMotors()
 }
 
 void turn_controlMotors( float nav_angle )
-// Fait tourner à droite ou à gauche 
 {
     //--- Tourner la bouée ---//
     if( nav_angle > 0.0 )

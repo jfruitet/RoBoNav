@@ -1,15 +1,11 @@
-/**************************************
-RoBoNav - 2023 - 2024 
-utils.cpp
-***************************************/
 #include "utils.h"
 
 // DELAI NON BLOQUANT
 bool tempsDepassee = false;
 uint32_t refTime = 0;
 
-bool log_enable = false;              // false au démarrage => init_Log( true ) doit activer le LOG
-int  log_priority = 0;                // Log priotity for next messages (initialisé par slog)
+bool log_enable = true;              // false au démarrage => init_Log( true ) doit activer le LOG
+int  log_priority = 5;                // Log priotity for next messages (initialisé par slog)
 bool log_Serial_activated = false;    // false au démarrage
 bool log_WiFi_activated = false;      // false au démarrage
 
@@ -83,7 +79,7 @@ void clog( uint32_t value )
     }
 }
 
-void clog( unsigned long value )
+void clog( long value )
 {
     if( log_enable && log_priority <= LOG_MAX_LEVEL )
     {

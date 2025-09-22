@@ -1,18 +1,21 @@
 //*****************************************************************************************//
-// RoboNav.ino - Buyobot ARBL Flight/Swim Controller
+// RoboNav - Buyobot ARBL Flight/Swim Controller
 // Copyright ICAM/ARBL 2022-2024
 //*****************************************************************************************//
 // Created, Maintener : Nicolas FERRY
 // Autors ICAM 2023 : Marie Louvet, Enora Fremy
 // Autors ICAM 2024 : Pierre-Louis Burger, Gauthier Ailleret
+// Autors ICAM 2025 : Agathe Daudenthun, Thed Kamga
 //*****************************************************************************************//
 // Created:  NF, EF-ML
 // Modified: RC_acquisition, initial GPS, Wifi_Acquisition - NF
 // Modified: ESC_control - PL
 // Modified: GPS, State-Machine - GA
 // Modified: Refactoring - NF
+// Modified: UBX - GPS - NF
+// Modified: Filtrage - AD
 //*****************************************************************************************//
-#define ROBONAV_VERSION "1.2.3"
+#define ROBONAV_VERSION "1.2.4"
 
 #include "pin_definition.h"
 #include "utils.h"
@@ -94,7 +97,7 @@ void setup()
    init_Compass();
 
    //--- Calibrate Equipements ----------------//
-   wait_RCMode(1);              // Wait for RC Command in Mode 1 = Return To Home (before starting calibrate and GPS RTH Fix)
+   wait_RCMode(1);              // Wait dor RC Command in Mode 1 = Return To Home (before starting calibrate and GPS RTH Fix)
    calibrate_ESC();
    calibrate_Compass();
    wait_GPSFix( true );         // Wait for GPS Fix and Store it at Return to Home Position
@@ -157,7 +160,7 @@ void loop()
   target_angle = deltaAngle( angle_bouee, nav_angle );
   
   slog( 0, "NAV", "CAP=", false ); clog( angle_bouee ); clog("°");
-    clog(" GPS="); clog( gps.location.lat() ); clog(","); clog( gps.location.lng() ); clog("  ");
+    clog(" GPS="); clog( lat_position_gps   ); clog(","); clog( lng_position_gps   ); clog("  ");
     clog( "POS="); clog( lat_position_bouee ); clog(","); clog( lng_position_bouee ); clog("  ");
     clog( "NAV="); clog( lat_position_dest  ); clog(","); clog( lng_position_dest  ); //elog();
   //slog( 0, "NAV", "Target GPS-D=", false  ); 

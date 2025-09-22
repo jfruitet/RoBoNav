@@ -1,26 +1,23 @@
-/***************************************
-RoBoNav  2023 - 2024 - GPS_acquisition.cpp
-Version développée pour les GPS Ublox M8N en configuration MNEA
-Voir Notes.h pour leur configuration
-A partir de 2025 nous programmons ceux-ci directement en UBX depuis le programme Aeduino
-Voir ../../../GPS/src_icam/DGPS M8N/Base_GPS.ino
-****************************************/
-
 #include "GPS_acquisition.h"
 
 #define NB_GPS_MOY  64
 
-TinyGPSPlus gps;
 HMC5883L compass;
+UBXMessage ubxMessage;
 
 double posLat[NB_GPS_MOY];
 double posLng[NB_GPS_MOY];
 double filterCoef_GPS[5] = { 0.6, 0.15, 0.1, 0.1, 0.05 };
 
+
+double lat_position_gps = 0.0;
+double lng_position_gps = 0.0;
+
 double lat_position_prev = 0.0;
 double lng_position_prev = 0.0;
 double lat_position_moy  = 0.0;
 double lng_position_moy  = 0.0;
+
 
 
 //**************************** BOUSSOLE - COMPASS ***********************************************************************************//
@@ -180,12 +177,41 @@ float read_Compass()
 //**************************** GPS ***********************************************************************************//
 void init_GPS()
 {
-    slog( 1, "GPS", "init GPS...................", false );
-    //--- initialisation UART2 - GPS UART -----------------------//
-    Serial2.begin(GPS_BAUDRATE, SERIAL_8N1, GPS_RxPin, GPS_TxPin);
+  long br = 0;
 
-    clog("Done.");
-    elog();
+  slog( 1, "GPS", "init GPS...................", true );
+  //--- initialisation UART2 - GPS UART -----------------------//
+  // Serial2.begin(GPS_BAUDRATE, SERIAL_8N1, GPS_RxPin, GPS_TxPin);  OLD TO DEL   !!!!!!!!!!!!!!!!!!
+  br = detect_gps_baudrate();
+  Serial.println(br);
+
+  //=== Revert to Default Configuration ===
+  slog( 2, "GPS", "UBX-GPS Reset and setup PORT confiugration", true);
+  sendUBX( UBLOX_REVERT, sizeof(UBLOX_REVERT) );
+  detect_gps_baudrate(); 
+
+  //=== Config PORT to 115200 Bauds ===//
+  slog( 2, "GPS", "UBX-GPS Config PORT configuration", true);
+  sendUBX( UBLOX_CONFIG_PORT, sizeof(UBLOX_CONFIG_PORT) );
+  br = detect_gps_baudrate(); 
+  // Wait For ACK - 0x06 = CFG, 0x00 = CFG-PRT
+  while( br != 115200 ) { 
+      slog( 2, "GPS", "ACK not received", true );
+      br = detect_gps_baudrate();
+      sendUBX( UBLOX_CONFIG_PORT, sizeof(UBLOX_CONFIG_PORT) );
+      br = detect_gps_baudrate();
+  }
+  // Send configuration data in UBX protocol
+  slog( 2, "GPS", "UBX-GPS Configuration", true);
+  sendUBX( UBLOX_MSG_INIT, sizeof(UBLOX_MSG_INIT) );
+
+  lat_position_prev = 0.0;
+  lng_position_prev = 0.0;
+  lat_position_moy  = 0.0;
+  lng_position_moy  = 0.0;
+  
+  slog( 2, "GPS", "", true);
+  slog( 2, "GPS", "Config GPS Terminated => OK.", true);
 }
 
 bool update_GPS()
@@ -199,43 +225,42 @@ bool update_GPS()
 
   //--- GPS Read a new command line -----//
   // Search for a NEMA Start command '$'
-/*  char c = 0xFF;
-  while( Serial2.available() > 0 )
-  { c = Serial2.read();
-    if( c == '$' ) {
-        Serial.print(c);
-        gps.encode( c );
-        break;
-    }
-  }*/
-
-  // This loop read a line and does not block by returning to the main loop
-  // if not gps command has not been issued yet
-  char c = 0xFF;
-  while( Serial2.available() > 0 )
-  {
-    c = Serial2.read();
-    //Serial.print(c);
-    res = gps.encode( c );
-    if( res ) {
-        //Serial.println();
-        break;
-    }
+  int msgType = processGPS();
+  if ( msgType == MT_NAV_STATUS ) {
+    //Serial.print("[STATUS] gpsFix:");    Serial.print(ubxMessage.navStatus.gpsFix);
+    //Serial.println();
   }
-  
-  //--- Do if New GPS valid position updated ------------------------------------------------------//
-  res = gps.location.isValid() && gps.location.isUpdated();
-  if( res )
-  {    
-    float deltaGPS = getGPSDistance( lat_position_moy, lng_position_moy, gps.location.lat(), gps.location.lng() );
+  else if ( msgType == MT_NAV_POSLLH ) {
+    //lat_position_gps = ubxMessage.navPosllh.lat;
+    //lng_position_gps = ubxMessage.navPosllh.lon;
+    /*Serial.print("[POSLLH] iTOW:"); Serial.print(ubxMessage.navPosllh.iTOW);
+    Serial.print(" lat/lon: "); Serial.print(ubxMessage.navPosllh.lat); Serial.print(","); Serial.print(ubxMessage.navPosllh.lon);
+    Serial.print(" hAcc: ");    Serial.print(ubxMessage.navPosllh.hAcc/1000.0f);
+    Serial.println();
+  */}
+  else if ( msgType == MT_NAV_PVT ) {
+    lat_position_gps = ubxMessage.navPvt.lat;
+    lng_position_gps = ubxMessage.navPvt.lon;
+    /*Serial.print("[PVT] SV: "); Serial.print(ubxMessage.navPvt.numSV);
+    Serial.print(" fixType: "); Serial.print(ubxMessage.navPvt.fixType);
+    Serial.print(" Date:");     Serial.print(ubxMessage.navPvt.year); Serial.print("/"); Serial.print(ubxMessage.navPvt.month); Serial.print("/"); Serial.print(ubxMessage.navPvt.day); Serial.print(" "); Serial.print(ubxMessage.navPvt.hour); Serial.print(":"); Serial.print(ubxMessage.navPvt.minute); Serial.print(":"); Serial.print(ubxMessage.navPvt.second);
+    */// Eviter les arrondis qui peuvent faire perdre de la précision
+    Serial.print(" lat/lon: "); Serial.print(lat_position_gps); Serial.print(","); Serial.print(lng_position_gps);
+    /*Serial.print(" gSpeed: ");  Serial.print(ubxMessage.navPvt.gSpeed/1000.0f);
+    Serial.print(" heading: "); Serial.print(ubxMessage.navPvt.heading/100000.0f);
+    Serial.print(" hAcc: ");    Serial.print(ubxMessage.navPvt.hAcc/1000.0f);
+    Serial.println(); */   
+
+    // Calcul ecart entre la moyenne et la nouvelle position
+    float deltaGPS = getGPSDistance( lat_position_moy, lng_position_moy, lat_position_gps, lng_position_gps);
     Serial.print( deltaGPS ); Serial.print(" "); Serial.print( lat_position_moy, 6 ); Serial.print(" "); Serial.println(lng_position_moy, 6 );
 
     // Si c'est le 1er update => on valide la Lat et Lng PREC
     if( deltaGPS > 1.5 )
     {
         // Fixe comme étant la nouvelle position bouée
-        lat_position_bouee = gps.location.lat();
-        lng_position_bouee = gps.location.lng();
+        lat_position_bouee = lat_position_gps;
+        lng_position_bouee = lng_position_gps;
         
         //--- Fixe la nouvelle moyenne à cette position ---//
         for( int i = 0; i < NB_GPS_MOY; i++ )
@@ -265,8 +290,8 @@ bool update_GPS()
           posLng[i] = posLng[i - 1];
         }
         //--- Store la nouvelle valeur ---//
-        posLat[0] = gps.location.lat();
-        posLng[0] = gps.location.lng();
+        posLat[0] = lat_position_gps;
+        posLng[0] = lng_position_gps;
 
         //--- Filtering GPS position -----------------------------------------------//
         lat_position_moy = 0.0;
@@ -280,20 +305,23 @@ bool update_GPS()
         // Calcul la nouvelle la nouvelle position bouée à partir de la moyenne
         lat_position_moy = lat_position_moy * (1.0/NB_GPS_MOY);
         lng_position_moy = lng_position_moy * (1.0/NB_GPS_MOY);
-        lat_position_bouee = gps.location.lat();
-        lng_position_bouee = gps.location.lng();
+        lat_position_bouee = lat_position_gps;
+        lng_position_bouee = lng_position_gps;
 
-        double delta_Lat = gps.location.lat() - lat_position_prev;
-        double delta_Lng = gps.location.lng() - lng_position_prev;
+        double delta_Lat = lat_position_gps - lat_position_prev;
+        double delta_Lng = lng_position_gps - lng_position_prev;
         
         // Decale la Target de la même erreur //
         lat_position_dest += delta_Lat;
         lng_position_dest += delta_Lng;
 
         //--- Store la nouvelle position comme la nouvelle (previous au tour d'après) ---//
-        lat_position_prev = gps.location.lat();
-        lng_position_prev = gps.location.lng();
+        lat_position_prev = lat_position_gps;
+        lng_position_prev = lng_position_gps;
     }
+
+    // Nouvel Update Ok
+    res = true;
   }
 
   return res;
@@ -313,8 +341,8 @@ bool wait_GPSFix( bool storeRTH )
 
   if( storeRTH ) {
      //--- Store la position de Return to Home ---//
-    lat_position_RTH = gps.location.lat();
-    lng_position_RTH = gps.location.lng();
+    lat_position_RTH = lat_position_moy;
+    lng_position_RTH = lng_position_moy;
     lat_position_dest_initiale = lat_position_RTH;
     lng_position_dest_initiale = lng_position_RTH;
     lat_position_dest = lat_position_dest_initiale;
@@ -374,4 +402,234 @@ float getGPSDistance(double latitudeOrigine, double longitudeOrigne, double lati
    double c = 2.0 * atan2(sqrt(a), sqrt(1.0 - a));
    double distance = c * 6371000.0; // distance en mètres
    return distance;
+}
+
+long detect_gps_baudrate()
+{
+  long baudrate = 0;
+  uint8_t ubxFound = 0;
+  uint8_t nmeaFound = 0;
+  
+  for (int i = 0; i < numBauds; i++) {
+    baudrate = baudRates[i];
+    Serial2.flush();
+    Serial2.end();
+    Serial.print("Trying GPS at "); Serial.print(baudrate); Serial.print("... ");
+    Serial2.begin(baudrate, SERIAL_8N1, GPS_RxPin, GPS_TxPin);
+
+    bool found = false;
+    unsigned long start = millis();
+    while( millis() - start < 1000 ) {
+      if( Serial2.available() ) {
+        char c = Serial2.read();
+        
+        // NMEA detection: look for '$G'
+        if( nmeaFound == 0 && c == '$') {
+          ubxFound = 0;
+          nmeaFound++;
+        } else if( nmeaFound == 1 && c == 'G') {
+          nmeaFound++;
+          break;
+        }
+        // UBX detection: look for 0xB5 0x62
+        else if( ubxFound == 0 && c == 0xB5) {
+          nmeaFound = 0;
+          ubxFound++;
+        } else if (ubxFound == 1 && c == 0x62) {
+          ubxFound++;
+          break;
+        }
+        // Reset Wrong UBX or NMEA Frame
+        else {
+          nmeaFound = 0;
+          ubxFound = 0;
+        }
+      }
+    }
+
+    if( nmeaFound >= 2 || ubxFound >= 2) {
+      Serial.println("Found GPS!");
+      break;
+    } else {
+      Serial.println("No data.");
+      baudrate = 0;
+    }
+  }
+
+  return baudrate;
+}
+
+bool waitForAck(byte msgClass, byte msgID, uint16_t timeout = 1000)
+{
+  byte ackPacket[10]; // UBX-ACK-ACK is always 10 bytes
+  byte expectedAck[] = {
+    0xB5, 0x62,     // Sync chars
+    0x05, 0x01,     // Class, ID (ACK-ACK)
+    0x02, 0x00,     // Payload length = 2
+    msgClass, msgID // Payload: class and ID of original message
+    // Followed by checksum
+  };
+
+  unsigned long start = millis();
+  uint8_t i = 0;
+
+  while (millis() - start < timeout) {
+    if (Serial2.available()) {
+      byte b = Serial2.read();
+
+      if (i < 10) {
+        ackPacket[i++] = b;
+      }
+
+      // Once we have the full packet
+      if (i == 10) {
+        // Compare first 8 bytes
+        bool match = true;
+        for (uint8_t j = 0; j < 8; j++) {
+          if (ackPacket[j] != expectedAck[j]) {
+            match = false;
+            break;
+          }
+        }
+
+        // Verify checksum
+        if (match) {
+          byte ckA = 0, ckB = 0;
+          for (int j = 2; j < 8; j++) {
+            ckA += ackPacket[j];
+            ckB += ckA;
+          }
+          if (ckA == ackPacket[8] && ckB == ackPacket[9]) {
+            return true; // ACK-ACK received
+          }
+        }
+
+        // Shift buffer to look for next packet if needed
+        i = 0;
+      }
+    }
+  }
+
+  return false; // Timeout
+}
+
+void sendUBX( const byte *msg, uint8_t len )
+{
+  bool valid_ack = false;
+  
+  for(uint8_t i = 0; i < len; i++) {                        
+    byte c = pgm_read_byte( msg+i );
+    Serial2.write( c );
+    Serial.print( c, HEX );        
+  }
+  Serial2.flush();
+  Serial.println();
+}
+
+// The last two bytes of the message is a checksum value, used to confirm that the received payload is valid.
+// The procedure used to calculate this is given as pseudo-code in the uBlox manual.
+void calcChecksum(unsigned char* CK, int msgSize) {
+  memset(CK, 0, 2);
+  for (int i = 0; i < msgSize; i++) {
+    CK[0] += ((unsigned char*)(&ubxMessage))[i];
+    CK[1] += CK[0];
+  }
+}
+
+
+// Compares the first two bytes of the ubxMessage struct with a specific message header.
+// Returns true if the two bytes match.
+bool compareMsgHeader(const unsigned char* msgHeader) {
+  unsigned char* ptr = (unsigned char*)(&ubxMessage);
+  return ptr[0] == msgHeader[0] && ptr[1] == msgHeader[1];
+}
+
+
+// Reads in bytes from the GPS module and checks to see if a valid message has been constructed.
+// Returns the type of the message found if successful, or MT_NONE if no message was found.
+// After a successful return the contents of the ubxMessage union will be valid, for the 
+// message type that was found. Note that further calls to this function can invalidate the
+// message content, so you must use the obtained values before calling this function again.
+int processGPS() {
+  static int fpos = 0;
+  static unsigned char checksum[2];
+  
+  static byte currentMsgType = MT_NONE;
+  static int payloadSize = sizeof(UBXMessage);
+
+  while ( Serial2.available() ) {  
+    byte c = Serial2.read();    
+    //Serial.write(c);
+    
+    if ( fpos < 2 ) {
+      // For the first two bytes we are simply looking for a match with the UBX header bytes (0xB5,0x62)
+      if ( c == UBX_HEADER[fpos] )
+        fpos++;
+      else
+        fpos = 0; // Reset to beginning state.
+    }
+    else {
+      // If we come here then fpos >= 2, which means we have found a match with the UBX_HEADER
+      // and we are now reading in the bytes that make up the payload.
+      
+      // Place the incoming byte into the ubxMessage struct. The position is fpos-2 because
+      // the struct does not include the initial two-byte header (UBX_HEADER).
+      if ( (fpos-2) < payloadSize )
+        ((unsigned char*)(&ubxMessage))[fpos-2] = c;
+
+      fpos++;
+      
+      if ( fpos == 4 ) {
+        // We have just received the second byte of the message type header, 
+        // so now we can check to see what kind of message it is.
+        if ( compareMsgHeader(NAV_POSLLH_HEADER) ) {
+          currentMsgType = MT_NAV_POSLLH;
+          payloadSize = sizeof(NAV_POSLLH);
+        }
+        else if ( compareMsgHeader(NAV_STATUS_HEADER) ) {
+          currentMsgType = MT_NAV_STATUS;
+          payloadSize = sizeof(NAV_STATUS);
+        }
+        else if ( compareMsgHeader(NAV_PVT_HEADER) ) {
+          currentMsgType = MT_NAV_PVT;
+          payloadSize = sizeof(NAV_PVT);
+        }
+        else {
+          // unknown message type, bail
+          fpos = 0;
+          continue;
+        }
+      }
+
+      if ( fpos == (payloadSize+2) ) {
+        // All payload bytes have now been received, so we can calculate the 
+        // expected checksum value to compare with the next two incoming bytes.
+        calcChecksum(checksum, payloadSize);
+      }
+      else if ( fpos == (payloadSize+3) ) {
+        // First byte after the payload, ie. first byte of the checksum.
+        // Does it match the first byte of the checksum we calculated?
+        if ( c != checksum[0] ) {
+          // Checksum doesn't match, reset to beginning state and try again.
+          fpos = 0; 
+        }
+      }
+      else if ( fpos == (payloadSize+4) ) {
+        // Second byte after the payload, ie. second byte of the checksum.
+        // Does it match the second byte of the checksum we calculated?
+        fpos = 0; // We will reset the state regardless of whether the checksum matches.
+        if ( c == checksum[1] ) {
+          // Checksum matches, we have a valid message.
+          return currentMsgType; 
+        }
+      }
+      else if ( fpos > (payloadSize+4) ) {
+        // We have now read more bytes than both the expected payload and checksum 
+        // together, so something went wrong. Reset to beginning state and try again.
+        fpos = 0;
+      }
+    }
+  }
+  
+  return MT_NONE;
 }

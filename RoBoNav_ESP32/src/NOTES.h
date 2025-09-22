@@ -1,4 +1,4 @@
-/* Gauthier Ailleret - ICAM Nantes
+/* Gauthier
       Il est passible d'utiliser les logiciels Mission Planner avec un Pixhawk pour faire transiter les datas du GPS en faisant un passflow
       Pour cela :
          Ouvrir Mission Planner
@@ -46,12 +46,5 @@ Servo ESC_Calibrage;
   }
 
 
-2025/05/02 - JF
-La configuration des GPS UBlox est à  modifier pouor passer en mode UBX plutôt que MNEA.
-Voir ../../../GPS
 
-
-2025/06/05 - JF
-
-Une ESC ayant brûlé, il faut la remplacer.
-J'ai fourni deux ESC 40A ZMR reverse. Il faut probablement reprogrammer ESC_control.cpp
+*/
