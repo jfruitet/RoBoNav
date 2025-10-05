@@ -22,7 +22,7 @@ Plusieurs équipes projets successives d'élèves de 4ème année de l'école d'
 y ont participé sous la tutelle de Nicolas FERRY, enseignant-chercheur à l'ICAM.
 
 A partir de septembre 2025, Mathis ANIZON et Quentin PARIS, élèves de 5ème année en alternance à l'ICAM de Vannes ont contribué à sa finalisation,
-sous la direction de Laurane GILETTE 5Enseignante Chercheuses, ICAM de Vannes).
+sous la direction de Laurane GILETTE (Enseignante Chercheuses, ICAM de Vannes).
 
 Les tests menés en juillet 2024 ont validé les concepts, le modèle de bouée et les logiciels de pilotage.
 
