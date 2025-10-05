@@ -4,6 +4,8 @@
 
 Mise à jour octobre 2025 - ROBONAV_VERSION "1.2.5"
 
+Cette mise à jour est disponible sur https://github.com/jfruitet/RoBoNav et la branche **rtk** 
+
 Développé par Gauthier AILLERET, Pierre-Louis BURGUET, Enora FREMY, Marie LOUVET, Agathe DAUDENTHUN, Thed Primael KAMGA KAPTOUOM (Elèves ingénieurs ICAM de Nantes)
 Nicolas FERRY, Enseignant Chercheur, ICAM de Nantes
 
