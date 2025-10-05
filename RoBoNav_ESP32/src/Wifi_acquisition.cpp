@@ -1,23 +1,22 @@
 /*******************************************
 RoBoNav  2023 - 2025 - Wifi_acquisisiton.cpp
+Intégre le code pour GPS RTK
 *******************************************/
-
 #include "Wifi_acquisition.h"
 
-#define NB_TRY_CONNECTIONS 3
-#define PACKET_LENGTH 255
+#define NB_TRY_CONNECTIONS  3
+#define PACKET_LENGTH       1024
+#define JSON_LENGTH         255
 
-//--- WiFi Access Point Configuration déplacé vers RoBoNav_config_WiFi.h ---//
-// const char *ssid = "JeanS10e";
-// const char *password = "xjok9755";
-//--- WiFi Access Point Configuration  ---//
-// const char *ssid = "NicoPhone"; 
-// const char *password = "12345678"; 
+//--- WiFi Access Point Configuration ---//
+const char *ssid = "JeanS10e";
+const char *password = "xjok9755";
 
 const int UDP_PORT = 1234;
-IPAddress local_IP ( 192, 168, 8, 001 );    // IP de la bouée
-IPAddress gateway  ( 255, 255, 255, 255 );    // IP de la gateway (router emettant le WiFi /OU IP Boradcast)
+IPAddress local_IP ( 192, 168,   8,   1 );    // IP de la bouée
 IPAddress subnet   ( 255, 255, 255, 000 );    // Masque de sous-réseau
+IPAddress gateway  ( 255, 255, 255, 255 );    // IP de la gateway (router emettant le WiFi)
+IPAddress broadcast( 255, 255, 255, 255 );    // IP Boradcast
 
 WiFiUDP udp;
 
@@ -26,7 +25,8 @@ int GPS_value[4]  = {0, 0, 0, 0};
 
 int tryConnect = 0;
 char packetBuffer[PACKET_LENGTH];
-StaticJsonDocument<PACKET_LENGTH> doc;
+StaticJsonDocument<JSON_LENGTH> doc;
+
 
 
 void init_WiFi()
@@ -74,33 +74,44 @@ void radioDecode_WiFi()
         packetBuffer[len] = 0;
         slog( 2, "WiFi", "Messsage UDP > ", false ); clog( packetBuffer ); elog();
     
-        // Parsing JSON packet content
-        String message = String( packetBuffer );
-        DeserializationError error = deserializeJson(doc, message);
-        if( error ) {
-            slog( 1, "WiFi", "deserializeJson() failed: ", false ); clog( error.c_str() ); elog();
-            return;
+        if( packetBuffer[0] == 0xD3 ) {
+          // Receiving RTCM Frame
+          #if USE_RTK_LC29H
+              rover.inject_RTCM( reinterpret_cast<const uint8_t*>(packetBuffer), static_cast<size_t>(len) );
+          #endif
         }
-      
-        int mode = doc["Mode"];
-        if (mode == 1) {
-          for (int i = 1; i <= 4; i++) {
-              Wifi_value[i] = doc["RC" + String(i)];
-              Wifi_value[i] = Wifi_value[i] - 1000;
+        else if( packetBuffer[0] == '$' ) {
+          // Receiving NMEA Frame
+        }
+        else {        
+          // Parsing JSON packet content
+          String message = String( packetBuffer );
+          DeserializationError error = deserializeJson(doc, message);
+          if( error ) {
+              slog( 1, "WiFi", "deserializeJson() failed: ", false ); clog( error.c_str() ); elog();
+              return;
           }
-        }
-        if (mode == 2) {
-          for (int i = 1; i <= 8; i++) {
-              Wifi_value[i] = doc["RC" + String(i)];
-              Wifi_value[i] = RC_Switch(Wifi_value[i]);
+        
+          int mode = doc["Mode"];
+          if (mode == 1) {
+            for (int i = 1; i <= 4; i++) {
+                Wifi_value[i] = doc["RC" + String(i)];
+                Wifi_value[i] = Wifi_value[i] - 1000;
+            }
           }
-        }
-        if (mode == 3) {
-          for (int i = 1; i <= 3; i++) {
-              GPS_value[i] = doc["GPS"+ String(i)];
-              slog( 3, "WiFi", "GPS_Value:", false ); clog( GPS_value[i] ); elog();
+          if (mode == 2) {
+            for (int i = 1; i <= 8; i++) {
+                Wifi_value[i] = doc["RC" + String(i)];
+                Wifi_value[i] = RC_Switch(Wifi_value[i]);
+            }
           }
-        }
+          if (mode == 3) {
+            for (int i = 1; i <= 3; i++) {
+                GPS_value[i] = doc["GPS"+ String(i)];
+                slog( 3, "WiFi", "GPS_Value:", false ); clog( GPS_value[i] ); elog();
+            }
+          }
+        } // End JSON
     }          
 }
 
@@ -111,4 +122,17 @@ void display_WiFi()
        clog("WF"); clog(i); clog(":"); clog( Wifi_value[i] ); clog(" | ");
   }
   elog();
+}
+
+
+void sendUDP( const uint8_t *mesg, const size_t length ) {
+  // Debug UDP
+  if( false ) {
+    Serial.print("UDP Send >> "); Serial.println( length );
+  }
+  
+  // Envoi en UDP broadcast
+  udp.beginPacket( broadcast, UDP_PORT );
+  udp.write( mesg, length );
+  udp.endPacket();
 }

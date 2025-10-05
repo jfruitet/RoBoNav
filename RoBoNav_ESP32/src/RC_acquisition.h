@@ -27,7 +27,7 @@ void wait_RCMode( int mode );
 void display_RC();
 
 //--- Interrupts Handlers ---//
-void IRAM_ATTR ISR_RC1_reading();   // Throttle
+void IRAM_ATTR ISR_RC1_reading();   // Throttle : ne pas s'y fier, il y a une indirection dans pin_definition.h
 void IRAM_ATTR ISR_RC2_reading();
 void IRAM_ATTR ISR_RC3_reading();   // Yaw ontrol
 void IRAM_ATTR ISR_RC4_reading();

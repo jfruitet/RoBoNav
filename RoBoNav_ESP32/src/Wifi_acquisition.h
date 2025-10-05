@@ -1,5 +1,6 @@
 /****************************************
 RoBoNav  2023 - 2025 - Wifi_acquisition.h
+Implante le GPS RTK Quectel module 
 *****************************************/
 
 #ifndef Wifi_acquisition_H
@@ -9,9 +10,10 @@ RoBoNav  2023 - 2025 - Wifi_acquisition.h
 #include <WiFi.h>
 #include <ArduinoJson.h>
 #include "WiFiUDP.h"
+#include "RTK.h"
 #include "RC_acquisition.h"
 #include "utils.h"
-#include "RoBoNav_config_WiFi.h" // Mot de passe et point d'entrée ssid ; A modifier pouur vos propres tests
+#include "RoBoNav_config_WiFi.h" // Mot de passe et point d'entrÃ©e ssid ; A modifier pour vos propres tests
 
 extern bool activerWifi;
 
@@ -21,6 +23,7 @@ extern IPAddress gateway;
 extern IPAddress subnet;
 
 extern WiFiUDP udp;
+extern RTK_Rover rover;       // GPS RTK
 
 extern int Wifi_value[9];
 extern int GPS_value[4];

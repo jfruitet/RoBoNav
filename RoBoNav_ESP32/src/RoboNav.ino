@@ -6,7 +6,7 @@
 // Autors ICAM 2023 : Marie Louvet, Enora Fremy
 // Autors ICAM 2024 : Pierre-Louis Burger, Gauthier Ailleret
 // Autors ICAM 2025 : Agathe Daudenthun, Thed Kamga
-// Autors ICAM 2026 : Mathis ANIZON, Quentin PARIS
+// Autors ICAM 2025 - 2026 : Mathis ANIZON, Quentin PARIS
 //*****************************************************************************************//
 // Created:  NF, EF-ML
 // Modified: RC_acquisition, initial GPS, Wifi_Acquisition - NF
@@ -15,9 +15,10 @@
 // Modified: Refactoring - NF
 // Modified: UBX - GPS - NF
 // Modified: Filtrage - AD
+// Modified: RTK (LC29H) - NF 
 //*****************************************************************************************//
 
-#define ROBONAV_VERSION "1.2.4"
+#define ROBONAV_VERSION "1.2.5"
 
 #include "pin_definition.h"
 #include "utils.h"
@@ -105,7 +106,7 @@ void setup()
    wait_GPSFix( true );         // Wait for GPS Fix and Store it at Return to Home Position
 
    //--- Setup Completed ----------------------//
-   wait_RCMode(3);              // Wait dor RC Command in Mode 3 = Mode Manuel (before starting)
+   wait_RCMode(3);              // Wait for RC Command in Mode 3 = Mode Manuel (before starting)
    slog( 0, "INIT", "Setup Completed !", true );
    setupCompleted = true;
 }

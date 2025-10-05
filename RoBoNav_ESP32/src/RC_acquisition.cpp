@@ -3,7 +3,7 @@ RoBoNav  2023 - 2024 - RC_acquisition.cpp
 Gestion des canaux affectés au récepteur de la radiocommande
 
 ATTENTION : Ce code suppose que la radiocommande et le récepteur puissent gérer au moins 8 canaux 
-onsulter le document RoBoNav - Mise en oeuvre.pdf du dossier  ../../Documentation
+Consulter le document RoBoNav - Mise en oeuvre.pdf du dossier  ../../Documentation
 ****************************************/
 
 #include "RC_acquisition.h"

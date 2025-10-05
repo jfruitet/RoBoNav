@@ -1,3 +1,8 @@
+/* RoBoNav - 2023 - 2024 - 2025 - Affectation des pins de la carte contrôleur ICAM / ARBL
+L'affectation des canaux du récepteur suivent celle des radiocommande Radiomaster 
+Canal 1 : Ailerons ; Canal 2 : Profondeur; Canal 3 : Gaz ; Canal 4 : Direction (gouverne)  
+*/
+
 #ifndef pin_definition_h 
 #define pin_definition_h
 

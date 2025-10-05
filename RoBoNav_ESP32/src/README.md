@@ -2,11 +2,12 @@
  
 ## Projet RoBoNav - Code source de la carte contrôleur de navigation ICAM / ARBL
 
-Mise à jour septembre 2025 - ROBONAV_VERSION "1.2.4"
+Mise à jour octobre 2025 - ROBONAV_VERSION "1.2.5"
 
-Développé par Gauthier AILLERET, Pierre-Louis BURGUET, Nicolas FERRY, Enora FREMY, Marie LOUVET, Agathe DAUDENTHUN, Thed Primael KAMGA KAPTOUOM, (ICAM de Nantes)
+Développé par Gauthier AILLERET, Pierre-Louis BURGUET, Enora FREMY, Marie LOUVET, Agathe DAUDENTHUN, Thed Primael KAMGA KAPTOUOM (Elèves ingénieurs ICAM de Nantes)
+Nicolas FERRY, Enseignant Chercheur, ICAM de Nantes
 
-Mathis ANIZON, Quentin PARIS, ICAM de Vannes,
+Mathis ANIZON, Quentin PARIS (Elèves ingénieurs, ICAM de Vannes).
 
 Jean FRUITET (ARBL)
 
@@ -19,18 +20,18 @@ Plusieurs équipes projets successives d'élèves de 4ème année de l'école d'
 y ont participé sous la tutelle de Nicolas FERRY, enseignant-chercheur à l'ICAM.
 
 A partir de septembre 2025, Mathis ANIZON et Quentin PARIS, élèves de 5ème année en alternance à l'ICAM de Vannes ont contribué à sa finalisation,
-sous la direction de Laurane GILETTE.
+sous la direction de Laurane GILETTE 5Enseignante Chercheuses, ICAM de Vannes).
 
 Les tests menés en juillet 2024 ont validé les concepts, le modèle de bouée et les logiciels de pilotage.
 
 En 2025 le positionnement GPS a été affiné, en testant plusieurs modèles de GPS d'entrée de gamme.
 
 Finalement nous nous sommes orientés vers l'utilisation de GPS RTK pour obtenir une précision décimétrique
-permettant de distinguer les déplacements dus à la dérive du vent et/ou du courant des errement imputables à l'impressision des données GPS.
+permettant de distinguer les déplacements dus à la dérive du vent et/ou du courant des errement imputables à l'imprécision des données GPS.
 
 Ce projet n'est pas achevé, des améliorations seront développées graduellement en sources libres.
 
-Si vous êtes intéressé contactez-moi.
+Si vous êtes intéressés contactez-moi.
 
 JF.
 
@@ -60,7 +61,7 @@ Nous avons développé une contrôleur de navigation basé sur micro contrôleur
 
 Un circuit imprimé (PCB) spécifique a été conçu pour ce projet.
 
-Le chip ESP32 gère un récepteur Radiomaster, une connexion WiFi, une antenne GPS, une boussole et des accéléromètres.
+Le chip ESP32 gère un récepteur Radiomaster, une connexion WiFi, une antenne GPS, une boussole.
 
 #### Logiciels
 
@@ -68,7 +69,7 @@ Le chip ESP32 gère un récepteur Radiomaster, une connexion WiFi, une antenne G
 La gestion de la carte de navigation est développée en CPP (.ino) sous  l'IDE Android Studio
 
 ##### Réseau WiFi
-L'établissement d'u réseau wiFi pour communique par brodcast avec les bouées à partir d'un smartphone ou d'un PC nécessite
+L'établissement d'un réseau wiFi pour communique par brodcast avec les bouées à partir d'un smartphone ou d'un PC nécessite
 un SSID et un mode passe.
 
 Pour vos tests modifier le fichier RoBoNav_config_WiFi.h 
