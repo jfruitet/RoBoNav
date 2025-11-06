@@ -2,7 +2,8 @@
 
 Rédigé par JF le 27/05/2025
 
-Suite aux difficultés dues à l'incertitude sur le positionnement des bouées avec des GPS d'entrée de gamme (Ublox M8N) et dans l'attente de GPS RTK,  je vous propose de mettre en place deux séries de tests à réaliser sur le plan d'eau du Plessis. 
+Suite aux difficultés dues à l'incertitude sur le positionnement des bouées avec des GPS d'entrée de gamme (Ublox M8N) et dans l'attente de GPS RTK,  
+je vous propose de mettre en place deux séries de tests à réaliser sur le plan d'eau du Plessis. 
 
 ## Test de consommation
 
@@ -51,4 +52,12 @@ L’idéal serait de pouvoir effectuer ces mesures avec des conditions météos 
 
 ## Réalisations
 
+### Cahier des charges
+
+https://github.com/jfruitet/RoBoNav/tree/rtk/RoBoNav_Tests/RoBoNav_Consommation.pdf 
+
+### Implanatation
+
 Dans le temps imparti les test n'ont pu être menés à bien. Agathe D. a toutefois pu réaliser en Python l'interface de l'application RoBoNav-Test.py destinée à récolter les data. 
+
+
